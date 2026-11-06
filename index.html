@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrivTrack – Privacy & Compliance Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Header & Dashboard Summary -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <!-- Shield with checkmark icon -->
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <polyline points="9 12 11 14 15 10"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 class="app-title">PrivTrack</h1>
+          <p class="app-description">Your simple privacy and compliance activity tracker.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Dashboard Summary Figures -->
+    <section class="dashboard-summary" aria-label="Compliance Summary Statistics">
+      <div class="summary-card total-card">
+        <div class="summary-card-header">
+          <span class="summary-card-title">Total Activities</span>
+          <div class="summary-icon total-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="summary-card-value" id="total-count">0</div>
+        <span class="summary-card-footnote">All recorded compliance tasks</span>
+      </div>
+
+      <div class="summary-card pending-card">
+        <div class="summary-card-header">
+          <span class="summary-card-title">Pending</span>
+          <div class="summary-icon pending-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="summary-card-value" id="pending-count">0</div>
+        <span class="summary-card-footnote">Awaiting commencement</span>
+      </div>
+
+      <div class="summary-card in-progress-card">
+        <div class="summary-card-header">
+          <span class="summary-card-title">In Progress</span>
+          <div class="summary-icon in-progress-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 2a10 10 0 0 1 10 10"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="summary-card-value" id="in-progress-count">0</div>
+        <span class="summary-card-footnote">Currently being handled</span>
+      </div>
+
+      <div class="summary-card completed-card">
+        <div class="summary-card-header">
+          <span class="summary-card-title">Completed</span>
+          <div class="summary-icon completed-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="summary-card-value" id="completed-count">0</div>
+        <span class="summary-card-footnote">Fulfilled and documented</span>
+      </div>
+    </section>
+
+    <!-- Workspace Grid: Form + Activity Management -->
+    <div class="app-layout">
+      <!-- Section: Add / Edit Activity Form -->
+      <section class="form-section">
+        <div class="card form-card">
+          <div class="card-header">
+            <h2 class="card-title" id="form-heading">Add Compliance Activity</h2>
+            <p class="card-subtitle">Keep track of policies, audits, DPIAs, and security reviews.</p>
+          </div>
+
+          <!-- Friendly Validation Message Container -->
+          <div id="validation-message" class="alert-message error-alert hidden" role="alert" aria-live="polite"></div>
+
+          <form id="activity-form" novalidate>
+            <!-- Hidden field for ID when editing -->
+            <input type="hidden" id="activity-id" value="">
+
+            <div class="form-group">
+              <label for="activity-name" class="form-label">
+                Activity Name <span class="required-indicator" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="activity-name"
+                name="activityName"
+                class="form-input"
+                placeholder="e.g., Review Privacy Policy, Conduct DPIA"
+                autocomplete="off"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="organization" class="form-label">
+                Organization <span class="required-indicator" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="organization"
+                name="organization"
+                class="form-input"
+                placeholder="e.g., Acme Health, TechCorp Ltd"
+                autocomplete="off"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="status" class="form-label">
+                Status <span class="required-indicator" aria-hidden="true">*</span>
+              </label>
+              <select id="status" name="status" class="form-select">
+                <option value="Pending">Pending</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="submit-btn" class="btn btn-primary">
+                <svg class="btn-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span id="submit-btn-text">Add Activity</span>
+              </button>
+              <button type="button" id="cancel-edit-btn" class="btn btn-secondary hidden">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Section: Search and Activities List -->
+      <section class="activities-section">
+        <div class="card activities-card">
+          <!-- Card Header & Search Bar -->
+          <div class="activities-header">
+            <div class="activities-header-text">
+              <h2 class="card-title">Compliance Activities</h2>
+              <p class="card-subtitle">Manage and review all scheduled and completed compliance tasks.</p>
+            </div>
+            
+            <!-- Search Input Field -->
+            <div class="search-box">
+              <label for="search-input" class="visually-hidden">Search activities</label>
+              <div class="search-input-wrapper">
+                <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input
+                  type="text"
+                  id="search-input"
+                  class="search-input"
+                  placeholder="Search activities by name or organization..."
+                  autocomplete="off"
+                >
+                <button type="button" id="clear-search-btn" class="clear-search-btn hidden" aria-label="Clear search input">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Activities Table/List Container -->
+          <div class="table-container" id="table-container">
+            <table class="activities-table" id="activities-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="th-activity">Activity Name</th>
+                  <th scope="col" class="th-org">Organization</th>
+                  <th scope="col" class="th-status">Status</th>
+                  <th scope="col" class="th-actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="activities-tbody">
+                <!-- Activity rows injected dynamically by JavaScript -->
+              </tbody>
+            </table>
+
+            <!-- Empty State Container -->
+            <div id="empty-state" class="empty-state hidden">
+              <div class="empty-state-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="12" y1="18" x2="12" y2="12"></line>
+                  <line x1="9" y1="15" x2="15" y2="15"></line>
+                </svg>
+              </div>
+              <p class="empty-state-message" id="empty-state-message">
+                No compliance activities yet. Add your first activity to get started.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>PrivTrack &copy; All rights reserved. Data is saved securely in your browser's local storage.</p>
+  </footer>
+</body>
+</html>
+

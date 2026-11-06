@@ -1,0 +1,881 @@
+/* ==========================================================================
+   PrivTrack – Privacy & Compliance Tracker
+   Clean, modern, professional stylesheet
+   ========================================================================== */
+
+/* --- CSS Variables & Design Tokens --- */
+:root {
+  /* Colors */
+  --color-primary: #0f172a;          /* Deep navy */
+  --color-primary-light: #1e293b;    /* Slate navy */
+  --color-brand: #1e3a8a;            /* Rich dark blue */
+  --color-brand-hover: #172554;
+  --color-accent-green: #10b981;     /* Subtle green accent */
+  --color-accent-green-bg: #ecfdf5;
+  --color-accent-green-border: #a7f3d0;
+
+  /* Neutrals */
+  --bg-app: #f8fafc;                 /* Light cool gray background */
+  --bg-card: #ffffff;                /* Pure white cards */
+  --text-main: #0f172a;              /* Primary text */
+  --text-muted: #64748b;             /* Secondary / muted text */
+  --text-subtle: #94a3b8;            /* Placeholder / very light text */
+  --border-color: #e2e8f0;           /* Clean card borders */
+  --border-light: #f1f5f9;
+  --divider: #e2e8f0;
+
+  /* Status Colors: Pending (Yellow/Amber) */
+  --status-pending-bg: #fffbeb;
+  --status-pending-text: #b45309;
+  --status-pending-border: #fde68a;
+  --status-pending-dot: #f59e0b;
+
+  /* Status Colors: In Progress (Blue) */
+  --status-progress-bg: #eff6ff;
+  --status-progress-text: #1d4ed8;
+  --status-progress-border: #bfdbfe;
+  --status-progress-dot: #3b82f6;
+
+  /* Status Colors: Completed (Green) */
+  --status-completed-bg: #f0fdf4;
+  --status-completed-text: #15803d;
+  --status-completed-border: #bbf7d0;
+  --status-completed-dot: #22c55e;
+
+  /* Action Colors */
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-danger-bg: #fef2f2;
+  --color-danger-border: #fecaca;
+
+  --color-edit: #2563eb;
+  --color-edit-hover: #1d4ed8;
+  --color-edit-bg: #eff6ff;
+  --color-edit-border: #dbeafe;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-focus: 0 0 0 3px rgba(30, 58, 138, 0.15);
+
+  /* Typography & Sizing */
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.2s ease;
+}
+
+/* --- Global Reset & Box Sizing --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Utility to hide visually but keep screen-reader accessible */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* --- Header --- */
+.app-header {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 3px solid var(--color-accent-green);
+  box-shadow: var(--shadow-md);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.brand-icon {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-accent-green);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.app-description {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  margin-top: 0.125rem;
+}
+
+/* --- Main Content Layout --- */
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* --- Dashboard Summary Cards --- */
+.dashboard-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.summary-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.summary-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.total-card::before {
+  background-color: var(--color-brand);
+}
+
+.pending-card::before {
+  background-color: var(--status-pending-dot);
+}
+
+.in-progress-card::before {
+  background-color: var(--status-progress-dot);
+}
+
+.completed-card::before {
+  background-color: var(--status-completed-dot);
+}
+
+.summary-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.summary-card-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.summary-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.total-icon {
+  background-color: #f1f5f9;
+  color: var(--color-brand);
+}
+
+.pending-icon {
+  background-color: var(--status-pending-bg);
+  color: var(--status-pending-text);
+}
+
+.in-progress-icon {
+  background-color: var(--status-progress-bg);
+  color: var(--status-progress-text);
+}
+
+.completed-icon {
+  background-color: var(--status-completed-bg);
+  color: var(--status-completed-text);
+}
+
+.summary-card-value {
+  font-size: 2.125rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.1;
+  font-feature-settings: "tnum";
+}
+
+.summary-card-footnote {
+  font-size: 0.75rem;
+  color: var(--text-subtle);
+}
+
+/* --- Layout Grid: Form + Activities List --- */
+.app-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+/* --- Generic Card Container --- */
+.card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.3;
+}
+
+.card-subtitle {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* --- Form Section --- */
+.form-card {
+  position: sticky;
+  top: 1.5rem;
+}
+
+#activity-form {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.required-indicator {
+  color: var(--color-danger);
+  margin-left: 2px;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.form-input:focus,
+.form-select:focus {
+  border-color: var(--color-brand);
+  box-shadow: var(--shadow-focus);
+}
+
+.form-input::placeholder {
+  color: var(--text-subtle);
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 16px;
+  padding-right: 2.25rem;
+  cursor: pointer;
+}
+
+/* Alert / Validation Box */
+.alert-message {
+  margin: 1.25rem 1.5rem 0;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.error-alert {
+  background-color: var(--color-danger-bg);
+  color: var(--color-danger);
+  border: 1px solid var(--color-danger-border);
+}
+
+/* Form Buttons */
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.6875rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: var(--color-brand);
+  color: #ffffff;
+  flex: 1;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-brand-hover);
+}
+
+.btn-primary:active {
+  transform: scale(0.99);
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.btn-icon {
+  flex-shrink: 0;
+}
+
+/* --- Activities Section & Search Bar --- */
+.activities-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.activities-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.activities-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Search Box */
+.search-box {
+  width: 100%;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--text-subtle);
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.625rem 2.25rem 0.625rem 2.5rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--text-main);
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.search-input:focus {
+  border-color: var(--color-brand);
+  box-shadow: var(--shadow-focus);
+}
+
+.search-input::placeholder {
+  color: var(--text-subtle);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 0.625rem;
+  background: transparent;
+  border: none;
+  color: var(--text-subtle);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.clear-search-btn:hover {
+  color: var(--text-main);
+  background-color: #f1f5f9;
+}
+
+/* --- Table Container & Table Styling --- */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.activities-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.activities-table th {
+  background-color: #f8fafc;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.activities-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.875rem;
+  vertical-align: middle;
+}
+
+.activities-table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.activities-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.activities-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Table Column Widths & Alignments */
+.th-activity {
+  width: 40%;
+}
+
+.th-org {
+  width: 25%;
+}
+
+.th-status {
+  width: 18%;
+}
+
+.th-actions {
+  width: 17%;
+  text-align: right;
+}
+
+.activities-table td.cell-actions {
+  text-align: right;
+}
+
+.activity-name-cell {
+  font-weight: 600;
+  color: var(--color-primary);
+  word-break: break-word;
+}
+
+.org-cell {
+  color: var(--text-muted);
+  word-break: break-word;
+}
+
+/* --- Status Badges --- */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-badge.status-pending {
+  background-color: var(--status-pending-bg);
+  color: var(--status-pending-text);
+  border: 1px solid var(--status-pending-border);
+}
+.status-badge.status-pending .status-dot {
+  background-color: var(--status-pending-dot);
+}
+
+.status-badge.status-in-progress {
+  background-color: var(--status-progress-bg);
+  color: var(--status-progress-text);
+  border: 1px solid var(--status-progress-border);
+}
+.status-badge.status-in-progress .status-dot {
+  background-color: var(--status-progress-dot);
+}
+
+.status-badge.status-completed {
+  background-color: var(--status-completed-bg);
+  color: var(--status-completed-text);
+  border: 1px solid var(--status-completed-border);
+}
+.status-badge.status-completed .status-dot {
+  background-color: var(--status-completed-dot);
+}
+
+/* --- Action Buttons (Edit / Delete) --- */
+.action-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.edit-btn {
+  color: var(--color-edit);
+  background-color: var(--color-edit-bg);
+  border-color: var(--color-edit-border);
+}
+
+.edit-btn:hover {
+  background-color: #dbeafe;
+  color: var(--color-edit-hover);
+}
+
+.delete-btn {
+  color: var(--color-danger);
+  background-color: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
+}
+
+.delete-btn:hover {
+  background-color: #fee2e2;
+  color: var(--color-danger-hover);
+}
+
+/* --- Empty State View --- */
+.empty-state {
+  padding: 3.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.875rem;
+}
+
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #f1f5f9;
+  color: var(--text-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state-message {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+/* Highlight search matches if needed */
+.highlight-text {
+  background-color: #fef08a;
+  color: #854d0e;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* --- Footer --- */
+.app-footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.8125rem;
+  color: var(--text-subtle);
+  border-top: 1px solid var(--border-color);
+  background-color: #ffffff;
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   Responsive Media Queries
+   ========================================================================== */
+
+/* Tablet & Medium Screens (<= 1024px) */
+@media (max-width: 1024px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-card {
+    position: static;
+  }
+
+  .dashboard-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Screens (<= 768px) */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1.25rem 1rem 2rem;
+    gap: 1.25rem;
+  }
+
+  .dashboard-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+  }
+
+  .summary-card {
+    padding: 1rem;
+  }
+
+  .summary-card-value {
+    font-size: 1.75rem;
+  }
+
+  .activities-header {
+    padding: 1rem;
+  }
+
+  /* Responsive Table: Transform rows into card-like items on mobile */
+  .activities-table {
+    display: block;
+    width: 100%;
+  }
+
+  .activities-table thead {
+    display: none; /* Hide headers visually, data-labels will be shown */
+  }
+
+  .activities-table tbody {
+    display: block;
+    padding: 0.75rem;
+  }
+
+  .activities-table tr {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 0.875rem;
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .activities-table tr:hover {
+    background-color: #ffffff;
+  }
+
+  .activities-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 0.875rem;
+  }
+
+  .activities-table td::before {
+    content: attr(data-label);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .activities-table td.cell-actions {
+    border-bottom: none;
+    padding-top: 0.75rem;
+    padding-bottom: 0;
+    justify-content: flex-end;
+  }
+
+  .activities-table td.cell-actions::before {
+    display: none;
+  }
+
+  .action-buttons {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .action-btn {
+    flex: 1;
+    padding: 0.5625rem;
+  }
+}
+
+/* Small Phones (<= 480px) */
+@media (max-width: 480px) {
+  .dashboard-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-text .app-title {
+    font-size: 1.25rem;
+  }
+
+  .brand-text .app-description {
+    font-size: 0.8125rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
